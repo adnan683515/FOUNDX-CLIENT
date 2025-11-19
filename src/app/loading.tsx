@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function loading() {
   return (
-    <div className='text-white'>loading...</div>
+    <div className='text-white'>loading global ...</div>
   )
 }

@@ -12,8 +12,9 @@ export default function Navber() {
         {/* Left Menu */}
         <div className="flex items-center space-x-6 text-lg font-medium">
           <Link href="/" className="hover:text-gray-300">Home</Link>
-          <Link href="/about" className="hover:text-gray-300">About</Link>
-          <Link href="/found" className="hover:text-gray-300">Found</Link>
+          <Link href="/found" className="hover:text-gray-300">About</Link>
+          <Link href="/perallal" className="hover:text-gray-300">PerallalRoute</Link>
+          <Link href="/perallal/test" className="hover:text-gray-300">Test</Link>
         </div>
 
         {/* Right Hamburger */}
