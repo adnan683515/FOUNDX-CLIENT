@@ -4,10 +4,7 @@ import bannar from "@/src/assets/bannar.jpg";
 export default function Hero() {
   return (
     <div
-      className="text-white min-h-[30vh] sm:min-h-[80vh] bg-cover bg-center flex items-center"
-      style={{
-        backgroundImage: `url(${bannar.src})`,
-      }}
+      className={`text-white min-h-[30vh] sm:min-h-[80vh] bg-cover bg-center flex items-center bg-[url('/bannar.jpg')]`}
     >
       <div className="max-w-[1200px] mx-auto text-center px-4">
 

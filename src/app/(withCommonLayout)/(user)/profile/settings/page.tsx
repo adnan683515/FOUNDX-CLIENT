@@ -1,12 +1,9 @@
-"use client"
 import React from 'react'
 
-export default function error() {
-
-  
+export default function page() {
   return (
     <div className='text-white'>
-        This is an error page 
+        This is settting pages
     </div>
   )
 }

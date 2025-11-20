@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function NotFound() {
   return (
-    <div className='text-whit '>NotFound</div>
+    <div className='text-white '>NotFound From global</div>
   )
 }
