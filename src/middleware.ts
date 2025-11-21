@@ -1,66 +1,46 @@
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
-
-
-const AuthRoutes = ['/login', '/register']
-
+const AuthRoutes = ["/login", "/register"];
 
 const roleBasedRoute: Record<string, RegExp[]> = {
   USER: [/^\/profile/],
   ADMIN: [/^\/admin/],
-}
+};
 
-const getUser = (request: NextRequest) => {
+type TUser = {
+  name: string;
+  role: "USER" | "ADMIN";
+} | null;
 
-  return {
-    name: 'mir',
-    role: 'USER', 
-  }
-}
+const getUser = (request: NextRequest): TUser => {
+  return null;
+};
 
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
+  
+  const { pathname } = request.nextUrl;
+  const user = getUser(request);
 
-  const user = getUser(request)
-
-
+  // Not logged in
   if (!user) {
-    if (AuthRoutes.includes(pathname)) { //login or register a jdi jaite chai tayle ok jaw
-
-      return NextResponse.next()
-    } else {
- 
-        //protect routes handle kortesi
-      return NextResponse.redirect(new URL('/login', request.url))
+    if (AuthRoutes.includes(pathname)) {
+      return NextResponse.next();
     }
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
+  // Role based access check
+  if (user.role in roleBasedRoute) {
+    const routes = roleBasedRoute[user.role];
+    const hasAccess = routes.some((route) => route.test(pathname));
 
-  if (user.role && roleBasedRoute[user.role]) {
-    const routes = roleBasedRoute[user.role]
-
-
-    const hasAccess = routes.some((route) => {
-        console.log(route.test(pathname))
-        return route.test(pathname)
-    })
-
-    if (hasAccess) { // route access korte parbe kina/// true kina
-      return NextResponse.next()
-    }
+    if (hasAccess) return NextResponse.next();
   }
 
-
-  return NextResponse.redirect(new URL('/', request.url))
+  return NextResponse.redirect(new URL("/", request.url));
 }
 
 export const config = {
-  matcher: [
-    '/profile/:path*', 
-    '/user/account',
-    '/admin/:path*',
-    '/login',
-    '/register',
-  ],
-}
+  matcher: ["/profile/:path*", "/admin/:path*", "/login", "/register"],
+};
