@@ -5,17 +5,18 @@ export interface TWallet {
   _id: string;
   title: string;
   description: string;
-  images: string[] ;  // Update if needed
+  images: string[] ; 
   location: string;
   city: string;
-  dateFound: string; // ISO date string
+  dateFound: string;
   status: "AVAILABLE" | "RETURNED" | "PENDING" | string;
   isReported: boolean;
   reportCount: number;
   category: string | null;
-  user: string | null ; // change based on your data
+  user: string | null ; 
   questions: string[];
   createdAt: string;
   updatedAt: string;
   __v: number;
 }
+

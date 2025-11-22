@@ -14,7 +14,14 @@ type TUser = {
 } | null;
 
 const getUser = (request: NextRequest): TUser => {
-  return null;
+
+
+  // return {
+  //   name : "Adnan",
+  //   role : 'ADMIN'
+  // };
+
+  return null
 };
 
 export function middleware(request: NextRequest) {

@@ -6,3 +6,4 @@ export const recentPost = async () => {
 
     return data
 }
+

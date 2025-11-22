@@ -1,54 +1,37 @@
-import React from "react";
-
-import { UseFormRegister } from "react-hook-form";
-
 interface FXinputProps {
-  label?: string;
-  variant?: string;
-  p?: string;
-  width?: string;
-  required?: boolean;
-  placeholder?: string;
-  type?: string;
-  className?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value?: string | number;
-  name: string; 
-  register?: UseFormRegister<any>;
+  label?: string
+  name: string
+  type?: string
+  placeholder?: string
+  required?: boolean
+  error?: string
+  register?: any
 }
 
-export default function FXinput({
-  label = "",
-  variant = "border border-white/40",
-  p = "px-4 py-2",
-  width = "w-full",
-  required = false,
-  placeholder = "Enter your information",
-  type = "text",
-  className = "",
-  onChange,
-  value,
+export const FXinput = ({
+  label,
   name,
-  register, 
-}: FXinputProps) {
-  return (
-    <div className={`flex flex-col gap-1 ${width}`}>
-      {label && (
-        <label className="text-sm text-gray-300">
-          {label} {required && <span className="text-red-500">*</span>}
-        </label>
-      )}
-
-      <input
-        {...(register ? register(name) : {})}
-        type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-        required={required}
-        placeholder={placeholder}
-        className={`${variant} ${p} rounded-lg bg-transparent text-white outline-none ${className}`}
-      />
-    </div>
-  );
-}
+  type = 'text',
+  placeholder,
+  required = false,
+  error,
+  register,
+}: FXinputProps) => (
+  <div className='flex flex-col gap-1'>
+    {label && (
+      <label className='text-sm text-gray-300'>
+        {label} {required && <span className='text-red-500'>*</span>}
+      </label>
+    )}
+    <input
+      type={type}
+      placeholder={placeholder}
+      {...(register ? register(name) : {})}
+      className={`p-2 rounded-lg border ${
+        error ? 'border-red-500' : 'border-gray-400'
+      } focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-transparent text-white`}
+      required={required}
+    />
+    {error && <p className='text-red-500 text-sm mt-1'>{error}</p>}
+  </div>
+)

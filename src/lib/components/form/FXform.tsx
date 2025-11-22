@@ -1,33 +1,28 @@
-"use client";
+'use client'
 
-import React, { ReactNode } from 'react'
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
+import React from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm, FormProvider, useFormContext } from 'react-hook-form'
+import { signUpValidation } from '@/src/schemas/signup.schema'
+import { TSignUP } from '@/src/TypeScript/Auth'
+import { RegisterService } from '@/src/services/AuthService'
 
-interface TformConfig {
-  defaultValues?: Record<string, any>;
-  resolver?: any;
+// ===================== FXform Component =====================
+interface FXformProps {
+  children: React.ReactNode
+  onSubmit: (data: any) => void
+  defaultValues?: Record<string, any>
+  resolver?: any
 }
 
-interface IProps extends TformConfig {
-  children: ReactNode;
-  onSubmit: SubmitHandler<any>;
-}
-
-export default function FXform({ children, defaultValues, resolver, onSubmit }: IProps) {
-
-  const formConfig: TformConfig = {};
-
-  if (defaultValues) formConfig.defaultValues = defaultValues;
-  if (resolver) formConfig.resolver = resolver;
-
-  const methods = useForm(formConfig);
-  const submitHandler = methods.handleSubmit;
+export const FXform = ({ children, onSubmit, defaultValues, resolver }: FXformProps) => {
+  const methods = useForm({ defaultValues, resolver })
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={submitHandler(onSubmit)}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
         {children}
       </form>
     </FormProvider>
-  );
+  )
 }
